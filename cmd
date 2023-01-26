@@ -1,0 +1,1 @@
+-Lmlx -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
