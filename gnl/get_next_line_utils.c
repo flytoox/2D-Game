@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelaizi <obelaizi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:41:18 by obelaizi          #+#    #+#             */
-/*   Updated: 2022/11/14 21:37:50 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:52:40 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *s)
+int	ft_len(char *s)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ char	*ft_strdup(const char *src)
 	char		*cp;
 
 	j = 0;
-	i = ft_strlen((char *)src);
+	i = ft_len((char *)src);
 	cp = malloc((i + 1) * sizeof(char));
 	if (!cp)
 		return (0);

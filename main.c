@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/25 13:46:18 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:47:48 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ int	main(int argc, char **argv)
 {
 	if (map_error(*(++argv)))
 		printf("wtf");
+
 }
