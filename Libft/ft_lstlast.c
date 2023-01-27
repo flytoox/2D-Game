@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelaizi <obelaizi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:33:50 by obelaizi          #+#    #+#             */
-/*   Updated: 2022/11/02 13:03:54 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:09:15 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_line	*ft_lstlast(t_line *lst)
 {
 	if (!lst)
 		return (0);

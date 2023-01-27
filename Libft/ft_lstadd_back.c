@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelaizi <obelaizi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 05:43:52 by obelaizi          #+#    #+#             */
-/*   Updated: 2022/11/02 21:31:03 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:03:03 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_line **lst, t_line *new)
 {
-	t_list	*check;
+	t_line	*check;
 
 	if (!new)
 		return ;
