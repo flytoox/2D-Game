@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:22:39 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/29 16:35:28 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:01:47 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,28 @@ int	check_collect(char **map)
 	return (1);
 }
 
-int	map_error(char *path)
+void	make_it_orgnl(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '3')
+				map[i][j] = 'C';
+			else if (map[i][j] == '2')
+				map[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+
+char	**map_error(char *path)
 {
 	int		fd;
 	int		len;
@@ -306,12 +327,15 @@ int	map_error(char *path)
 	fd = open(path, O_RDWR);
 	if (fd == -1 || check_map_name(path) || !check_rectangle(fd, &head)
 		|| !check_map_inside(head) || !check_map_closed(head))
-		return (1);
+		return (0);
 	map = fill_dbl_string(head);
 	if (!map)
-		return (1);
+		return (0);
 	if (!check_exit(map) || !check_collect(map))
-		return (1);
-
-	return (0);
+		return (0);
+	// while (map[i])
+	// 	printf("%s", map[i++]);
+	// int i = 0;
+	make_it_orgnl(map);
+	return (map);
 }
