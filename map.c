@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:22:39 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/27 23:18:12 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:35:28 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ int	check_rectangle(int fd, t_line **head)
 	char	*line;
 	size_t	len;
 
-	line = get_next_line(fd);
-	if (!line)
+	ft_lstadd_back(head, ft_lstnew(get_next_line(fd)));
+	if (!((*head)->data))
 		return (0);
-	len = ft_strlen(line);
-	ft_lstadd_back(head, ft_lstnew(line));
+	line = (*head)->data;
+	len = ft_strlen((*head)->data);
 	while (line)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			return (ft_lstclear(head), 0);
 		ft_lstadd_back(head, ft_lstnew(line));
-		if (line && ft_strlen(line) == len - 1 && line[len - 1] != '\n')
+		if (line && ft_strlen(line) == len - 1 && line[len - 2] != '\n')
 			break ;
 		else if (line && len != ft_strlen(line))
 			return (ft_lstclear(head), 0);
@@ -219,50 +219,80 @@ int	get_y(char **map, char c)
 	return (2147483647);
 }
 
-int	search_top(char **map, int x, int y)
+void	search(char **map, int x, int y, int check)
 {
-	printf("x->(%d) y->(%d)\n", x, y);
-	if (map[y][x] == 'E' || map[y][x + 1] == 'E' || map[y][x - 1] == 'E')
-		return (printf("fafawf"), 1);
-	if (map[y][x + 1] == '0')
-		search_top(map, x + 1, y);
-	if (map[y][x - 1] == '0')
-		search_top(map, x - 1, y);
-	if (map[y - 1][x] == '0')
-		search_top(map, x, y - 1);
+	if (map[y][x] == 'E' || map[y][x + 1] == 'E' || map[y][x - 1] == 'E' || map[y - 1][x] == 'E' || map[y + 1][x] == 'E')
+		return ;
+	if ((map[y][x + 1] == '0' || map[y][x + 1] == 'C') && check != 2)
+	{
+		if (map[y][x + 1] == '0')
+			map[y][x + 1] = '2';
+		else
+			map[y][x + 1] = '3';
+		search(map, x + 1, y, 1);
+	}
+	if ((map[y][x - 1] == '0' || map[y][x - 1] == 'C') && check != 1)
+	{
+		if (map[y][x - 1] == '0')
+			map[y][x - 1] = '2';
+		else
+			map[y][x - 1] = '3';
+		search(map, x - 1, y, 2);
+	}
+	if ((map[y - 1][x] == '0' || map[y - 1][x] == 'C') && check != 4)
+	{
+		if (map[y - 1][x] == '0')
+			map[y - 1][x] = '2';
+		else
+			map[y - 1][x] = '3';
+		search(map, x, y - 1, 3);
+	}
+	if ((map[y + 1][x] == '0' || map[y + 1][x] == 'C') && check != 3)
+	{
+		if (map[y + 1][x] == '0')
+			map[y + 1][x] = '2';
+		else
+			map[y + 1][x] = '3';
+		search(map, x, y + 1, 4);
+	}
 }
 
-int	search_bottom(char **map, int x, int y)
+int	check_exit(char **map)
 {
-	if (map[y][x] == 'E')
-		return (printf("there is exit"), 1);
-	if (map[y][x + 1] == '0')
-		search_top(map, x + 1, y);
-	if (map[y][x - 1] == '0')
-		search_top(map, x - 1, y);
-	if (map[y + 1][x] == '0')
-		search_top(map, x, y + 1);
-}
-
-int	check_exit(t_line *head)
-{
-	char	**map;
 	int		p_x;
 	int		p_y;
 	int		e_x;
 	int		e_y;
 
-	map = fill_dbl_string(head);
-	if (!map)
-		return (0);
 	p_x = get_x(map, 'P');
 	p_y = get_y(map, 'P');
 	e_x = get_x(map, 'E');
 	e_y = get_y(map, 'E');
-	if (e_y > p_y)
-		search_bottom(map, p_x, p_y);
-	else
-		search_top(map, p_x, p_y);
+	search(map, p_x, p_y, 0);
+	if (map[e_y][e_x + 1] == '2' || map[e_y][e_x - 1] == '2' || map[e_y - 1][e_x] == '2' || map[e_y + 1][e_x] == '2'
+	|| map[e_y][e_x + 1] == '3' || map[e_y][e_x - 1] == '3' || map[e_y - 1][e_x] == '3' || map[e_y + 1][e_x] == '3')
+		return (1);
+	return (0);
+}
+
+int	check_collect(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'C')
+				return(0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 int	map_error(char *path)
@@ -270,13 +300,18 @@ int	map_error(char *path)
 	int		fd;
 	int		len;
 	t_line	*head;
+	char	**map;
 
 	head = NULL;
 	fd = open(path, O_RDWR);
 	if (fd == -1 || check_map_name(path) || !check_rectangle(fd, &head)
 		|| !check_map_inside(head) || !check_map_closed(head))
 		return (1);
-	if (!check_exit(head))
+	map = fill_dbl_string(head);
+	if (!map)
 		return (1);
+	if (!check_exit(map) || !check_collect(map))
+		return (1);
+
 	return (0);
 }

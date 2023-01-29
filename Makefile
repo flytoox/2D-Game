@@ -6,29 +6,29 @@
 #    By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 20:40:02 by obelaizi          #+#    #+#              #
-#    Updated: 2023/01/27 20:10:12 by obelaizi         ###   ########.fr        #
+#    Updated: 2023/01/29 15:11:39 by obelaizi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-FLAGS = -Wall -Wextra -Werror
+FLAGS =
 
 SRCS = $(wildcard *.c ./gnl/*.c)
 OBJS= $(SRCS:.c=.o)
 
 all : $(NAME)
 
-%.o: %.c push_swap.h ./gnl/get_next_line.h
-	cc -c $(FLAGS) $<
+%.o: %.c so_long.h ./gnl/get_next_line.h
+	cc -c $(FLAGS) -g  $< -o $@
 
 libft.a :
 	make -C Libft all bonus
 
 $(NAME): libft.a $(OBJS)
-	@cc $(OBJS) ./Libft/libft.a -o $(NAME)
+	cc $(OBJS) ./Libft/libft.a -g  -o $(NAME)
 
 bonus: $(OBJS_BONUS)
-	@cc $(OBJS_BONUS) -o $(NAME_BONUS)
+	@cc $(OBJS_BONUS) -o -g  $(NAME_BONUS)
 
 clean:
 	@rm -f $(OBJS) $(OBJS_BONUS)
