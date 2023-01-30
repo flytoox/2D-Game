@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:22:39 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/29 22:01:47 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:42:41 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,8 +221,8 @@ int	get_y(char **map, char c)
 
 void	search(char **map, int x, int y, int check)
 {
-	if (map[y][x] == 'E' || map[y][x + 1] == 'E' || map[y][x - 1] == 'E' || map[y - 1][x] == 'E' || map[y + 1][x] == 'E')
-		return ;
+	// if (map[y][x] == 'E' || map[y][x + 1] == 'E' || map[y][x - 1] == 'E' || map[y - 1][x] == 'E' || map[y + 1][x] == 'E')
+	// 	return ;
 	if ((map[y][x + 1] == '0' || map[y][x + 1] == 'C') && check != 2)
 	{
 		if (map[y][x + 1] == '0')
@@ -270,7 +270,8 @@ int	check_exit(char **map)
 	e_y = get_y(map, 'E');
 	search(map, p_x, p_y, 0);
 	if (map[e_y][e_x + 1] == '2' || map[e_y][e_x - 1] == '2' || map[e_y - 1][e_x] == '2' || map[e_y + 1][e_x] == '2'
-	|| map[e_y][e_x + 1] == '3' || map[e_y][e_x - 1] == '3' || map[e_y - 1][e_x] == '3' || map[e_y + 1][e_x] == '3')
+		|| map[e_y][e_x + 1] == '3' || map[e_y][e_x - 1] == '3' || map[e_y - 1][e_x] == '3' || map[e_y + 1][e_x] == '3'
+		|| map[e_y][e_x + 1] == 'P' || map[e_y][e_x - 1] == 'P' || map[e_y - 1][e_x] == 'P' || map[e_y + 1][e_x] == 'P')
 		return (1);
 	return (0);
 }
@@ -333,9 +334,9 @@ char	**map_error(char *path)
 		return (0);
 	if (!check_exit(map) || !check_collect(map))
 		return (0);
+	// int i = 0;
 	// while (map[i])
 	// 	printf("%s", map[i++]);
-	// int i = 0;
 	make_it_orgnl(map);
 	return (map);
 }

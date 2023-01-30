@@ -6,29 +6,13 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/29 22:09:07 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/30 22:00:58 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-typedef struct	s_data {
-	void	*img;
-	int		img_width ;
-	int		img_height ;
-	char	*addr;
-	char	*path;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
-
-int	myclose(int keycode, t_vars *vars)
+int	myclose(int keycode, t_game *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
 	return (0);
@@ -44,99 +28,198 @@ int	give_me_height(char	**map)
 	return (i);
 }
 
-int	key_hook(int keycode, t_vars *vars)
+
+void	move_up(char **map, int	*mvs)
 {
-	printf("%d\n", keycode);
+	int		x;
+	int		y;
+	char	*moves;
+
+	x = get_x(map, 'P');
+	y = get_y(map, 'P');
+	if (map[y - 1][x] == '0' || map[y - 1][x] == 'C')
+	{
+		map[y - 1][x] = 'P';
+		map[y][x] = '0';
+		moves = ft_itoa(*mvs += 1);
+		ft_putendl_fd(moves, 1);
+	}
+	else if (map[y - 1][x] == 'E' && check_collect(map))
+		exit(0);
+
+}
+
+void	move_down(char **map, int *mvs)
+{
+	int		x;
+	int		y;
+	char	*moves;
+
+	x = get_x(map, 'P');
+	y = get_y(map, 'P');
+	if (map[y + 1][x] == '0' || map[y + 1][x] == 'C')
+	{
+		map[y + 1][x] = 'P';
+		map[y][x] = '0';
+		moves = ft_itoa(*mvs += 1);
+		ft_putendl_fd(moves, 1);
+	}
+	else if (map[y + 1][x] == 'E' && check_collect(map))
+		exit(0);
+}
+
+void	move_right(char **map, int *mvs)
+{
+	int		x;
+	int		y;
+	char	*moves;
+
+	x = get_x(map, 'P');
+	y = get_y(map, 'P');
+	if (map[y][x + 1] == '0' || map[y][x + 1] == 'C')
+	{
+		map[y][x + 1] = 'P';
+		map[y][x] = '0';
+		moves = ft_itoa(*mvs += 1);
+		ft_putendl_fd(moves, 1);
+	}
+	else if (map[y][x + 1] == 'E' && check_collect(map))
+		exit(0);
+}
+
+void	move_left(char **map, int *mvs)
+{
+	int		x;
+	int		y;
+	char	*moves;
+
+	x = get_x(map, 'P');
+	y = get_y(map, 'P');
+	if (map[y][x - 1] == '0' || map[y][x - 1] == 'C')
+	{
+		map[y][x - 1] = 'P';
+		map[y][x] = '0';
+		moves = ft_itoa(*mvs += 1);
+		ft_putendl_fd(moves, 1);
+	}
+	else if (map[y][x - 1] == 'E' && check_collect(map))
+		exit(0);
+}
+
+void	map_on_game(char **map, t_game slong)
+{
+	int	i;
+	int	height;
+	int	j;
+	int	width;
+
+	i = -1;
+	height = 0;
+	while (map[++i])
+	{
+		width = 0;
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] == 'C')
+				mlx_put_image_to_window(slong.mlx, slong.win, slong.clct.img, width, height);
+			else if (map[i][j] == 'E')
+				mlx_put_image_to_window(slong.mlx, slong.win, slong.ext.img, width, height);
+			else if (map[i][j] == 'P')
+				mlx_put_image_to_window(slong.mlx, slong.win, slong.plyr.img, width, height);
+			else if (map[i][j] == '1')
+				mlx_put_image_to_window(slong.mlx, slong.win, slong.wall.img, width, height);
+			width += 50;
+		}
+		height += 50;
+	}
+}
+
+int	key_hook(int keycode, t_game *slong)
+{
+	char	*mvs;
+
+	if (keycode == 65307 || keycode == 'w' || keycode == 's' || keycode == 'a' || keycode == 'd')
+	{
+		if (keycode == 65307)
+		{
+			mlx_destroy_window(slong->mlx, slong->win);
+			exit(0);
+		}
+		else if (keycode == 'w')
+			move_up(slong->map, &slong->mvs);
+		else if (keycode == 's')
+			move_down(slong->map, &slong->mvs);
+		else if (keycode == 'a')
+			move_left(slong->map, &slong->mvs);
+		else
+			move_right(slong->map, &slong->mvs);
+		mlx_clear_window(slong->mlx, slong->win);
+		map_on_game(slong->map, *slong);
+	}
+	// printf("%d\n", keycode);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_vars	vars;
-	t_data	back;
-	t_data	clct;
-	t_data	plyr;
-	t_data	ext;
-	t_data	wall;
-	char	**map;
+	t_game	slong;
 	int		height;
 	int		width;
 
-	map = map_error(*(++argv));
-	if (!map)
-	{
-		printf("wtf");
-		return (0);
-	}
-	height = give_me_height(map);
-	width = ft_strlen(map[0]);
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, width * 50, height * 50, "Hello world!");
-	ext.path = ft_strdup("./pictures/exit.xpm");
-	clct.path = ft_strdup("./pictures/burger.xpm");
-	back.path = ft_strdup("./pictures/background.xpm");
-	plyr.path = ft_strdup("./pictures/spongebob.xpm");
-	wall.path = ft_strdup("./pictures/wall.xpm");
-	back.img = mlx_xpm_file_to_image(vars.mlx, back.path, &back.img_width, &back.img_height);
-	back.addr = mlx_get_data_addr(back.img, &back.bits_per_pixel, &back.line_length,
-								&back.endian);
+	slong.map = map_error(*(++argv));
+	if (!slong.map)
+		return (printf("wtf"), 0);
+
+	height = give_me_height(slong.map);
+	width = ft_strlen(slong.map[0]);
+	slong.mvs = 0;
+	slong.mlx = mlx_init();
+	slong.win = mlx_new_window(slong.mlx, width * 50, height * 50, "Hello world!");
+	slong.ext.path = ft_strdup("./pictures/exit.xpm");
+	slong.clct.path = ft_strdup("./pictures/burger.xpm");
+	slong.back.path = ft_strdup("./pictures/background.xpm");
+	slong.plyr.path = ft_strdup("./pictures/spongebob.xpm");
+	slong.wall.path = ft_strdup("./pictures/wall.xpm");
+	slong.back.img = mlx_xpm_file_to_image(slong.mlx, slong.back.path, &slong.back.img_width, &slong.back.img_height);
+	slong.back.addr = mlx_get_data_addr(slong.back.img, &slong.back.bits_per_pixel, &slong.back.line_length,
+								&slong.back.endian);
 
 
-	plyr.img = mlx_xpm_file_to_image(vars.mlx, plyr.path, &plyr.img_width, &plyr.img_height);
-	plyr.addr = mlx_get_data_addr(plyr.img, &plyr.bits_per_pixel, &plyr.line_length,
-								&plyr.endian);
+	slong.plyr.img = mlx_xpm_file_to_image(slong.mlx, slong.plyr.path, &slong.plyr.img_width, &slong.plyr.img_height);
+	slong.plyr.addr = mlx_get_data_addr(slong.plyr.img, &slong.plyr.bits_per_pixel, &slong.plyr.line_length,
+								&slong.plyr.endian);
 
 
-	clct.img = mlx_xpm_file_to_image(vars.mlx, clct.path, &clct.img_width, &clct.img_height);
-	clct.addr = mlx_get_data_addr(clct.img, &clct.bits_per_pixel, &clct.line_length,
-								&clct.endian);
+	slong.clct.img = mlx_xpm_file_to_image(slong.mlx, slong.clct.path, &slong.clct.img_width, &slong.clct.img_height);
+	slong.clct.addr = mlx_get_data_addr(slong.clct.img, &slong.clct.bits_per_pixel, &slong.clct.line_length,
+								&slong.clct.endian);
 
 
-	ext.img = mlx_xpm_file_to_image(vars.mlx, ext.path, &ext.img_width, &ext.img_height);
-	ext.addr = mlx_get_data_addr(ext.img, &ext.bits_per_pixel, &ext.line_length,
-								&ext.endian);
+	slong.ext.img = mlx_xpm_file_to_image(slong.mlx, slong.ext.path, &slong.ext.img_width, &slong.ext.img_height);
+	slong.ext.addr = mlx_get_data_addr(slong.ext.img, &slong.ext.bits_per_pixel, &slong.ext.line_length,
+								&slong.ext.endian);
 
-	wall.img = mlx_xpm_file_to_image(vars.mlx, wall.path, &wall.img_width, &wall.img_height);
-	wall.addr = mlx_get_data_addr(wall.img, &wall.bits_per_pixel, &wall.line_length,
-								&wall.endian);
-	int i = 0, j;
-	height = 0;
-	while (map[i])
-	{
-		width = 0;
-		j = 0;
-		while (map[i][j])
-		{
-			mlx_put_image_to_window(vars.mlx, vars.win, back.img, width, height);
-			j++;
-			width += 50;
-		}
-		height += 50;
-		i++;
-	}
+	slong.wall.img = mlx_xpm_file_to_image(slong.mlx, slong.wall.path, &slong.wall.img_width, &slong.wall.img_height);
+	slong.wall.addr = mlx_get_data_addr(slong.wall.img, &slong.wall.bits_per_pixel, &slong.wall.line_length,
+								&slong.wall.endian);
+	// int i = 0, j;
+	// height = 0;
+	// while (slong.map[i])
+	// {
+	// 	width = 0;
+	// 	j = 0;
+	// 	while (slong.map[i][j])
+	// 	{
+	// 		mlx_put_image_to_window(slong.mlx, slong.win, slong.back.img, width, height);
+	// 		j++;
+	// 		width += 50;
+	// 	}
+	// 	height += 50;
+	// 	i++;
+	// }
 
-	i = 0;
-	height = 0;
-	while (map[i])
-	{
-		width = 0;
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'C')
-				mlx_put_image_to_window(vars.mlx, vars.win, clct.img, width, height);
-			else if (map[i][j] == 'E')
-				mlx_put_image_to_window(vars.mlx, vars.win, ext.img, width, height);
-			else if (map[i][j] == 'P')
-				mlx_put_image_to_window(vars.mlx, vars.win, plyr.img, width, height);
-			else if (map[i][j] == '1')
-				mlx_put_image_to_window(vars.mlx, vars.win, wall.img, width, height);
-			j++;
-			width += 50;
-		}
-		height += 50;
-		i++;
-	}
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_loop(vars.mlx);
+	map_on_game(slong.map, slong);
+	mlx_key_hook(slong.win, key_hook, &slong);
+	mlx_loop(slong.mlx);
 }
