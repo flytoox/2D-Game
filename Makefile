@@ -6,12 +6,12 @@
 #    By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 20:40:02 by obelaizi          #+#    #+#              #
-#    Updated: 2023/01/29 16:57:13 by obelaizi         ###   ########.fr        #
+#    Updated: 2023/01/31 21:06:44 by obelaizi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-FLAGS =
+FLAGS = 
 
 SRCS = $(wildcard *.c ./gnl/*.c)
 OBJS= $(SRCS:.c=.o)

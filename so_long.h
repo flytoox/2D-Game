@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:23:10 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/30 21:46:42 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/31 21:24:34 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,18 @@
 # include "gnl/get_next_line.h"
 # include "mlx/mlx.h"
 
-
-
-typedef struct	image {
+typedef struct image {
 	void	*img;
 	int		img_width ;
 	int		img_height ;
 	char	*addr;
 	char	*path;
-	int		bits_per_pixel;
+	int		bts_perpxls;
 	int		line_length;
 	int		endian;
 }				t_img;
 
-typedef struct	my_game {
+typedef struct my_game {
 	void	*mlx;
 	void	*win;
 	char	**map;

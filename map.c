@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:22:39 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/30 16:42:41 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:42:28 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,8 @@ char	**fill_dbl_string(t_line *head)
 	int		total_lines;
 	int		i;
 	char	**map;
-	int		len_line;
 
 	i = 0;
-	len_line = ft_strlen(head->data) - 1;
 	total_lines = ft_lstsize(head);
 	map = malloc((total_lines + 1) * (sizeof(char *)));
 	map[total_lines] = NULL;
@@ -320,7 +318,6 @@ void	make_it_orgnl(char **map)
 char	**map_error(char *path)
 {
 	int		fd;
-	int		len;
 	t_line	*head;
 	char	**map;
 
@@ -334,9 +331,7 @@ char	**map_error(char *path)
 		return (0);
 	if (!check_exit(map) || !check_collect(map))
 		return (0);
-	// int i = 0;
-	// while (map[i])
-	// 	printf("%s", map[i++]);
 	make_it_orgnl(map);
+	ft_lstclear(&head);
 	return (map);
 }
