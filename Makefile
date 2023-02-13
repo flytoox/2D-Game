@@ -6,14 +6,14 @@
 #    By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 20:40:02 by obelaizi          #+#    #+#              #
-#    Updated: 2023/01/31 21:06:44 by obelaizi         ###   ########.fr        #
+#    Updated: 2023/02/13 19:48:26 by obelaizi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
-SRCS = $(wildcard *.c ./gnl/*.c)
+SRCS = $(wildcard ./Mondatory/*.c ./gnl/*.c)
 OBJS= $(SRCS:.c=.o)
 
 all : $(NAME)
@@ -25,7 +25,7 @@ libft.a :
 	make -C Libft all bonus
 
 $(NAME): libft.a $(OBJS)
-	cc $(OBJS) ./Libft/libft.a -Lmlx -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	cc $(OBJS) ./Libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 bonus: $(OBJS_BONUS)
 	@cc $(OBJS_BONUS) -o -g  $(NAME_BONUS)
