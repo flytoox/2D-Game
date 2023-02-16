@@ -1,16 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 00:05:51 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 00:05:37 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+void	enemy_on_map(t_game slong)
+{
+	int			i;
+	int			height;
+	int			j;
+	int			width;
+	static int	frame;
+
+	i = -1;
+	height = 0;
+	if (frame == 30)
+		frame = 0;
+	while (slong.map[++i])
+	{
+		width = 0;
+		j = -1;
+		while (slong.map[i][++j])
+		{
+			if (slong.map[i][j] == 'N')
+				print_enemy(slong, frame, width, height);
+			width += 50;
+		}
+		height += 50;
+	}
+	frame++;
+}
 
 int	key_hook(int keycode, t_game *slong)
 {
@@ -32,6 +59,7 @@ int	key_hook(int keycode, t_game *slong)
 			move_right(slong->map, &slong->mvs, slong);
 		mlx_clear_window(slong->mlx, slong->win);
 		map_on_game(slong->map, *slong);
+		enemy_on_map(*slong);
 	}
 	return (0);
 }
@@ -78,9 +106,10 @@ int	main(int argc, char **argv)
 	if (!slong.clct.img || !slong.ext.img || !slong.wall.img
 		|| !slong.plyr.img || !slong.back.img)
 		return (free_all(slong.map, slong), 1);
-	map_on_game(slong.map, slong);
+	fill_my_enemy(&slong);
 	mlx_hook(slong.win, 2, 0, &key_hook, &slong);
 	mlx_hook(slong.win, 17, 0, &myclose, &slong);
+	mlx_loop_hook(slong.mlx, &enemy_animation, &slong);
 	mlx_loop(slong.mlx);
 	return (0);
 }

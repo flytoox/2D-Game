@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:23:10 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:56:40 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:59:34 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <math.h>
 # include "../Libft/libft.h"
@@ -25,6 +25,19 @@ typedef struct image {
 	int		img_height ;
 }				t_img;
 
+typedef struct enemy {
+	t_img	enm1;
+	t_img	enm2;
+	t_img	enm3;
+	t_img	enm4;
+	t_img	enm5;
+	t_img	enm6;
+	t_img	enm7;
+	t_img	enm8;
+	t_img	enm9;
+	t_img	enm10;
+}				t_enemy;
+
 typedef struct my_game {
 	void	*mlx;
 	void	*win;
@@ -34,6 +47,7 @@ typedef struct my_game {
 	t_img	plyr;
 	t_img	ext;
 	t_img	wall;
+	t_enemy	enemy;
 	int		mvs;
 }				t_game;
 
@@ -65,5 +79,9 @@ void	move_down(char **map, int *mvs, t_game slong);
 void	move_right(char **map, int *mvs, t_game *slong);
 void	move_left(char **map, int *mvs, t_game *slong);
 
+void	print_enemy(t_game slong, int i, int width, int height);
+void	fill_my_enemy(t_game *slong);
+int		enemy_animation(t_game *slong);
+void	enemy_on_map(t_game slong);
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainHelper.c                                       :+:      :+:    :+:   */
+/*   mainHelper_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:29:28 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:35:46 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:51:32 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	free_map(char **map)
 {
@@ -87,10 +87,11 @@ void	back_on_game(char **map, t_game slong)
 
 void	map_on_game(char **map, t_game slong)
 {
-	int	i;
-	int	height;
-	int	j;
-	int	width;
+	int		i;
+	int		height;
+	int		j;
+	int		width;
+	char	*mvs;
 
 	i = -1;
 	height = 0;
@@ -106,4 +107,7 @@ void	map_on_game(char **map, t_game slong)
 		}
 		height += 50;
 	}
+	mvs = ft_itoa(slong.mvs);
+	mlx_string_put(slong.mlx, slong.win, 0, 0, 16777215, mvs);
+	free(mvs);
 }

@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/so_long",
+			"program": "${workspaceFolder}/so_long_bonus",
 			"args": ["mama.ber"],
 			"cwd": "${workspaceFolder}"
 		}

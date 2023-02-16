@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   moves_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:27:07 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:46:00 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:58:32 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	move_up(char **map, int	*mvs, t_game slong)
 {
@@ -28,7 +28,8 @@ void	move_up(char **map, int	*mvs, t_game slong)
 		ft_putendl_fd(moves, 1);
 		free(moves);
 	}
-	else if (map[y - 1][x] == 'E' && check_collect(map, 0))
+	else if ((map[y - 1][x] == 'E' && check_collect(map, 0))
+			|| map[y - 1][x] == 'N')
 	{
 		moves = ft_itoa(++(*mvs));
 		ft_putendl_fd(moves, 1);
@@ -54,7 +55,8 @@ void	move_down(char **map, int *mvs, t_game slong)
 		ft_putendl_fd(moves, 1);
 		free(moves);
 	}
-	else if (map[y + 1][x] == 'E' && check_collect(map, 0))
+	else if ((map[y + 1][x] == 'E' && check_collect(map, 0))
+			|| map[y + 1][x] == 'N')
 	{
 		moves = ft_itoa(++(*mvs));
 		ft_putendl_fd(moves, 1);
@@ -94,7 +96,8 @@ void	move_right(char **map, int *mvs, t_game *slong)
 		ft_putendl_fd(moves, 1);
 		free(moves);
 	}
-	else if (map[y][x + 1] == 'E' && check_collect(map, 0))
+	else if ((map[y][x + 1] == 'E' && check_collect(map, 0))
+			|| map[y][x + 1] == 'N')
 	{
 		moves = ft_itoa(++(*mvs));
 		ft_putendl_fd(moves, 1);
@@ -121,7 +124,8 @@ void	move_left(char **map, int *mvs, t_game *slong)
 		ft_putendl_fd(moves, 1);
 		free(moves);
 	}
-	else if (map[y][x - 1] == 'E' && check_collect(map, 0))
+	else if ((map[y][x - 1] == 'E' && check_collect(map, 0))
+			|| map[y][x - 1] == 'N')
 	{
 		moves = ft_itoa(++(*mvs));
 		ft_putendl_fd(moves, 1);
