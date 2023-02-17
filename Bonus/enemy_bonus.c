@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:28:40 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:53:46 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:31:38 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 
 void	fill_my_enemy_helper(t_game *slong)
 {
-	slong->enemy.enm6.img = mlx_xpm_file_to_image(slong->mlx,
-			"./Bonus/enemy/6.xpm", &slong->enemy.enm6.img_width,
-			&slong->enemy.enm6.img_height);
-	slong->enemy.enm7.img = mlx_xpm_file_to_image(slong->mlx,
-			"./Bonus/enemy/7.xpm", &slong->enemy.enm7.img_width,
-			&slong->enemy.enm7.img_height);
-	slong->enemy.enm8.img = mlx_xpm_file_to_image(slong->mlx,
-			"./Bonus/enemy/8.xpm", &slong->enemy.enm8.img_width,
-			&slong->enemy.enm8.img_height);
-	slong->enemy.enm9.img = mlx_xpm_file_to_image(slong->mlx,
-			"./Bonus/enemy/9.xpm", &slong->enemy.enm9.img_width,
-			&slong->enemy.enm9.img_height);
-	slong->enemy.enm10.img = mlx_xpm_file_to_image(slong->mlx,
-			"./Bonus/enemy/10.xpm", &slong->enemy.enm10.img_width,
-			&slong->enemy.enm10.img_height);
+	if (!slong->enemy.enm1.img || !slong->enemy.enm2.img
+		|| !slong->enemy.enm3.img || !slong->enemy.enm4.img
+		|| !slong->enemy.enm5.img || !slong->enemy.enm6.img
+		|| !slong->enemy.enm7.img)
+	{
+		ft_putstr_fd("Error\nDude a picture isn't there ;)", 2);
+		free_all(slong->map, *slong);
+		exit(1);
+	}
 }
 
 void	fill_my_enemy(t_game *slong)
@@ -48,6 +42,12 @@ void	fill_my_enemy(t_game *slong)
 	slong->enemy.enm5.img = mlx_xpm_file_to_image(slong->mlx,
 			"./Bonus/enemy/5.xpm", &slong->enemy.enm5.img_width,
 			&slong->enemy.enm5.img_height);
+	slong->enemy.enm6.img = mlx_xpm_file_to_image(slong->mlx,
+			"./Bonus/enemy/6.xpm", &slong->enemy.enm6.img_width,
+			&slong->enemy.enm6.img_height);
+	slong->enemy.enm7.img = mlx_xpm_file_to_image(slong->mlx,
+			"./Bonus/enemy/7.xpm", &slong->enemy.enm7.img_width,
+			&slong->enemy.enm7.img_height);
 	fill_my_enemy_helper(slong);
 }
 

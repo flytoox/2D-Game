@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:27:07 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:58:32 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:23:42 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	rote_player(t_game *slong, int x)
 	mlx_destroy_image(slong->mlx, slong->plyr.img);
 	if (x)
 		slong->plyr.img = mlx_xpm_file_to_image(slong->mlx,
-				"./pictures/SpongebobL.xpm",
+				"./pictures/plyrL.xpm",
 				&slong->plyr.img_width, &slong->plyr.img_height);
 	else
 		slong->plyr.img = mlx_xpm_file_to_image(slong->mlx,
-				"./pictures/SpongebobR.xpm",
+				"./pictures/plyrR.xpm",
 				&slong->plyr.img_width, &slong->plyr.img_height);
 }
 

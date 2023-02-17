@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:23:10 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:56:40 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:34:50 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ void	move_up(char **map, int	*mvs, t_game slong);
 void	move_down(char **map, int *mvs, t_game slong);
 void	move_right(char **map, int *mvs, t_game *slong);
 void	move_left(char **map, int *mvs, t_game *slong);
-
 
 #endif

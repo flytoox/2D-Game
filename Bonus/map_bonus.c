@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:22:39 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/16 23:45:30 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:56:12 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,22 @@ char	**map_error(char *path)
 
 	head = NULL;
 	fd = open(path, O_RDWR);
-	if (fd == -1 || check_map_name(path) || !check_rectangle(fd, &head)
+	if (fd == -1)
+	{
+		ft_putstr_fd("Error\nDude there no map on that path ;(", 2);
+		exit(1);
+	}
+	if (check_map_name(path) || !check_rectangle(fd, &head)
 		|| !check_map_inside(head) || !check_map_closed(head))
 		return (0);
 	map = fill_dbl_string(head);
 	if (!map)
-		return (0);
+	{
+		ft_putstr_fd("Error\nemm", 2);
+		exit (1);
+	}
 	if (!check_exit(map) || !check_collect(map, 1))
-		return (0);
+		exit (1);
 	make_it_orgnl(map);
 	ft_lstclear(&head);
 	return (map);

@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 00:05:37 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:49:19 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ int	key_hook(int keycode, t_game *slong)
 	return (0);
 }
 
-int	myclose(void)
+int	myclose(t_game *slong)
 {
+	free_all(slong->map, *slong);
 	exit(0);
 	return (0);
 }
@@ -79,13 +80,17 @@ void	fill_my_variable(t_game *slong)
 	width = ft_strlen(slong->map[0]);
 	slong->mvs = 0;
 	slong->mlx = mlx_init();
-	slong->win = mlx_new_window(slong->mlx, width * 50,
-			height * 50, "Hello world!");
+	if (!slong->mlx || height * 50 > 9000 || width * 50 > 9000)
+	{
+		ft_putstr_fd("Error\nThe map is so big dude", 2);
+		exit(1);
+	}
+	slong->win = mlx_new_window(slong->mlx, width * 50, height * 50, "So_Long");
 	slong->back.img = mlx_xpm_file_to_image(slong->mlx,
 			"./pictures/background.xpm",
 			&slong->back.img_width, &slong->back.img_height);
 	slong->plyr.img = mlx_xpm_file_to_image(slong->mlx,
-			"./pictures/SpongebobR.xpm",
+			"./pictures/plyrR.xpm",
 			&slong->plyr.img_width, &slong->plyr.img_height);
 	slong->clct.img = mlx_xpm_file_to_image(slong->mlx, "./pictures/burger.xpm",
 			&slong->clct.img_width, &slong->clct.img_height);
@@ -101,11 +106,14 @@ int	main(int argc, char **argv)
 
 	slong.map = map_error((argv[--argc]));
 	if (!slong.map)
-		return (printf("wtf"), 0);
+		return (ft_putstr_fd("Error\nemm", 2), 1);
 	fill_my_variable(&slong);
 	if (!slong.clct.img || !slong.ext.img || !slong.wall.img
 		|| !slong.plyr.img || !slong.back.img)
+	{
+		ft_putstr_fd("Error\nDude a picture isn't there ;)", 2);
 		return (free_all(slong.map, slong), 1);
+	}
 	fill_my_enemy(&slong);
 	mlx_hook(slong.win, 2, 0, &key_hook, &slong);
 	mlx_hook(slong.win, 17, 0, &myclose, &slong);
