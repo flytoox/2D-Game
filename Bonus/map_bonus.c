@@ -12,6 +12,19 @@
 
 #include "so_long_bonus.h"
 
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 void	make_it_orgnl(char **map)
 {
 	int	i;

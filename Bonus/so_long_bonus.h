@@ -16,7 +16,6 @@
 # include <math.h>
 # include "../Libft/libft.h"
 # include "../gnl/get_next_line.h"
-// # include "mlx/mlx.h"
 # include <mlx.h>
 
 typedef struct image {
@@ -33,9 +32,6 @@ typedef struct enemy {
 	t_img	enm5;
 	t_img	enm6;
 	t_img	enm7;
-	t_img	enm8;
-	t_img	enm9;
-	t_img	enm10;
 }				t_enemy;
 
 typedef struct my_game {

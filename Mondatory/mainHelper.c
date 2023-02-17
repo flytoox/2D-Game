@@ -40,7 +40,7 @@ void	free_all(char **map, t_game slong)
 		mlx_destroy_image(slong.mlx, slong.wall.img);
 	if (slong.win)
 		mlx_destroy_window(slong.mlx, slong.win);
-	free(slong.mlx);
+	mlx_destroy_display(slong.mlx);
 }
 
 void	mlx_img_wndw(t_game slong, int width, int height, char c)

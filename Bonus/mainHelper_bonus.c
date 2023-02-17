@@ -12,17 +12,22 @@
 
 #include "so_long_bonus.h"
 
-void	free_map(char **map)
+void	free_enemy(t_game slong)
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
+	if (slong.enemy.enm1.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm1.img);
+	if (slong.enemy.enm2.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm2.img);
+	if (slong.enemy.enm3.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm3.img);
+	if (slong.enemy.enm4.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm4.img);
+	if (slong.enemy.enm5.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm5.img);
+	if (slong.enemy.enm6.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm6.img);
+	if (slong.enemy.enm7.img)
+		mlx_destroy_image(slong.mlx, slong.enemy.enm7.img);
 }
 
 void	free_all(char **map, t_game slong)
@@ -40,7 +45,8 @@ void	free_all(char **map, t_game slong)
 		mlx_destroy_image(slong.mlx, slong.wall.img);
 	if (slong.win)
 		mlx_destroy_window(slong.mlx, slong.win);
-	free(slong.mlx);
+	free_enemy(slong);
+	mlx_destroy_display(slong.mlx);
 }
 
 void	mlx_img_wndw(t_game slong, int width, int height, char c)

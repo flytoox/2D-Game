@@ -16,7 +16,6 @@
 # include <math.h>
 # include "../Libft/libft.h"
 # include "../gnl/get_next_line.h"
-// # include "mlx/mlx.h"
 # include <mlx.h>
 
 typedef struct image {
