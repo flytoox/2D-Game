@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 14:02:29 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/12 19:25:32 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:59:22 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct line
 	char		*data;
 	struct line	*next;
 }t_line;
-
 
 size_t	ft_strlen(const char *s);
 int		ft_isalnum(int c);
