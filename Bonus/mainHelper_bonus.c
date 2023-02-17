@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:29:28 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 15:49:56 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:11:21 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	free_all(char **map, t_game slong)
 	if (slong.win)
 		mlx_destroy_window(slong.mlx, slong.win);
 	free_enemy(slong);
-	mlx_destroy_display(slong.mlx);
 }
 
 void	mlx_img_wndw(t_game slong, int width, int height, char c)
