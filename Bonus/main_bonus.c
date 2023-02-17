@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 21:13:48 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:53:44 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,22 @@ void	fill_my_variable(t_game *slong)
 int	main(int argc, char **argv)
 {
 	t_game	slong;
+	void	*plyr_l;
 
 	slong.map = map_error((argv[--argc]));
 	if (!slong.map)
 		return (ft_putstr_fd("Error\nemm", 2), 1);
 	fill_my_variable(&slong);
+	fill_my_enemy(&slong);
+	plyr_l = mlx_xpm_file_to_image(slong.mlx, "./pictures/plyrL.xpm",
+			&slong.plyr.img_width, &slong.plyr.img_height);
 	if (!slong.clct.img || !slong.ext.img || !slong.wall.img
-		|| !slong.plyr.img || !slong.back.img)
+		|| !slong.plyr.img || !slong.back.img || !plyr_l)
 	{
 		ft_putstr_fd("Error\nDude a picture isn't there ;)", 2);
 		return (free_all(slong.map, slong), 1);
 	}
-	fill_my_enemy(&slong);
+	mlx_destroy_image(slong.mlx, plyr_l);
 	mlx_hook(slong.win, 2, 0, &key_hook, &slong);
 	mlx_hook(slong.win, 17, 0, &myclose, &slong);
 	mlx_loop_hook(slong.mlx, &enemy_animation, &slong);

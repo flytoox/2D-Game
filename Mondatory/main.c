@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 21:11:14 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:49:01 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,8 @@ int	myclose(t_game *slong)
 	return (0);
 }
 
-void	fill_my_variable(t_game *slong)
+void	fill_my_variable(t_game *slong, int height, int width)
 {
-	int	height;
-	int	width;
-
-	height = give_me_height(slong->map);
-	width = ft_strlen(slong->map[0]);
 	slong->mvs = 0;
 	slong->mlx = mlx_init();
 	if (!slong->mlx || height * 50 > 8000 || width * 50 > 8000)
@@ -62,7 +57,7 @@ void	fill_my_variable(t_game *slong)
 			"./pictures/background.xpm",
 			&slong->back.img_width, &slong->back.img_height);
 	slong->plyr.img = mlx_xpm_file_to_image(slong->mlx,
-			"./pictures/SpongebobR.xpm",
+			"./pictures/plyrR.xpm",
 			&slong->plyr.img_width, &slong->plyr.img_height);
 	slong->clct.img = mlx_xpm_file_to_image(slong->mlx, "./pictures/burger.xpm",
 			&slong->clct.img_width, &slong->clct.img_height);
@@ -75,15 +70,20 @@ void	fill_my_variable(t_game *slong)
 int	main(int argc, char **argv)
 {
 	t_game	slong;
+	void	*plyr_l;
 
 	slong.map = map_error((argv[--argc]));
-	fill_my_variable(&slong);
+	fill_my_variable(&slong,
+		give_me_height(slong.map), ft_strlen(slong.map[0]));
+	plyr_l = mlx_xpm_file_to_image(slong.mlx, "./pictures/plyrL.xpm",
+			&slong.plyr.img_width, &slong.plyr.img_height);
 	if (!slong.clct.img || !slong.ext.img || !slong.wall.img
-		|| !slong.plyr.img || !slong.back.img)
+		|| !slong.plyr.img || !slong.back.img || !plyr_l)
 	{
 		ft_putstr_fd("Error\nDude a picture isn't there ;)", 2);
 		return (free_all(slong.map, slong), 1);
 	}
+	mlx_destroy_image(slong.mlx, plyr_l);
 	map_on_game(slong.map, slong);
 	mlx_hook(slong.win, 2, 0, &key_hook, &slong);
 	mlx_hook(slong.win, 17, 0, &myclose, &slong);
