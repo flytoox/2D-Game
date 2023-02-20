@@ -105,6 +105,8 @@ int	main(int argc, char **argv)
 	t_game	slong;
 	void	*plyr_l;
 
+	if (argc != 2)
+		return (ft_putstr_fd("Error\n", 2), 1);
 	slong.map = map_error((argv[--argc]));
 	if (!slong.map)
 		return (ft_putstr_fd("Error\nemm", 2), 1);

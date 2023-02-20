@@ -72,6 +72,8 @@ int	main(int argc, char **argv)
 	t_game	slong;
 	void	*plyr_l;
 
+	if (argc != 2)
+		return (ft_putstr_fd("Error\n", 2), 1);
 	slong.map = map_error((argv[--argc]));
 	fill_my_variable(&slong,
 		give_me_height(slong.map), ft_strlen(slong.map[0]));
