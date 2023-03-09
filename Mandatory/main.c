@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:37:06 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/02/17 21:49:01 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:41:08 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	key_hook(int keycode, t_game *slong)
 int	myclose(t_game *slong)
 {
 	free_all(slong->map, *slong);
-	exit(0);
-	return (0);
+	return (exit(0), 0);
 }
 
 void	fill_my_variable(t_game *slong, int height, int width)

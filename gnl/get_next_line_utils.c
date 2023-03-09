@@ -6,7 +6,7 @@
 /*   By: obelaizi <obelaizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:41:18 by obelaizi          #+#    #+#             */
-/*   Updated: 2023/01/26 21:52:40 by obelaizi         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:40:57 by obelaizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strdup(const char *src)
 
 	j = 0;
 	i = ft_len((char *)src);
-	cp = malloc((i + 1) * sizeof(char));
+	cp = malloc(i + 1);
 	if (!cp)
 		return (0);
 	while (i)
